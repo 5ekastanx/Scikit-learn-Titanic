@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Данные и обученная модель не кладём в репозиторий
+data/*.csv
+models/*.joblib
+
+# Система
+.DS_Store
