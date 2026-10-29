@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 1. Положи файл `titanic.csv` (Kaggle, 891 строка) в папку `data/`. В репозиторий он не входит.
 2. Обучение (из корня проекта): `python -m src.train`. Создаёт `models/model.joblib` и `models/metrics.json`.
-3. Пример предсказания: `python -m src.predict`.
+3. Пример предсказания: `python -m src.predict`. Если запустить predict до train, будет FileNotFoundError.
 4. Тесты: `pytest`.
 
 ## Структура
