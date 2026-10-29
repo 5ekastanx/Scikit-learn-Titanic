@@ -23,4 +23,5 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
 
     # братья/сёстры/супруги + родители/дети + сам пассажир
     df["FamilySize"] = df["SibSp"] + df["Parch"] + 1
+    df["IsAlone"] = (df["FamilySize"] == 1).astype(int)
     return df
