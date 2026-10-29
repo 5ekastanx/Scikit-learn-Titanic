@@ -47,3 +47,10 @@ def test_predict_handles_missing_and_unknown():
                                     "Embarked": "X"})           # порт X модель не видела
     assert 0.0 <= out["probability"] <= 1.0
 
+def test_is_alone():
+    df = pd.DataFrame([
+        dict(Name="Doe, Mr. John", SibSp=0, Parch=0),
+        dict(Name="Doe, Mrs. Jane", SibSp=1, Parch=0),
+    ])  
+    out = add_features(df)
+    assert list(out["IsAlone"]) == [1, 0]
