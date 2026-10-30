@@ -14,14 +14,12 @@ def add_features(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()                                   # не трогаем таблицу вызывающего
 
     # «Braund, Mr. Owen Harris» -> «Mr»
-    title = (df["Name"].str.split(", ").str[1]       # «Mr. Owen Harris»
-                       .str.split(" ").str[0]        # «Mr.»
-                       .str.rstrip("."))             # «Mr»
+    title = (df["Name"].astype("string")
+                       .str.extract(r",\s*([^\s]+)", expand=False)
+                       .astype("string").str.rstrip("."))
     title = title.replace(TITLE_FIX)
-    # редкие и пропущенные титулы -> «Rare»
     df["Title"] = title.where(title.isin(KEEP_TITLES), "Rare")
 
-    # братья/сёстры/супруги + родители/дети + сам пассажир
     df["FamilySize"] = df["SibSp"] + df["Parch"] + 1
     df["IsAlone"] = (df["FamilySize"] == 1).astype(int)
     return df

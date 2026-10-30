@@ -5,3 +5,6 @@ joblib
 matplotlib
 jupyter
 pytest
+fastapi
+uvicorn
+httpx

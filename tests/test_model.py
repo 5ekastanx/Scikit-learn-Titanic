@@ -28,6 +28,12 @@ def test_add_features_title_and_family():
     assert "Title" not in df.columns          # исходная таблица не изменилась
 
 
+def test_add_features_name_without_title_separator():
+    df = pd.DataFrame([dict(Name="No comma in this name", SibSp=0, Parch=0)])
+
+    assert list(add_features(df)["Title"]) == ["Rare"]
+
+
 def test_predict_returns_probability():
     data = tiny_data()
     model = build_model().fit(data[RAW_COLS], data["Survived"])

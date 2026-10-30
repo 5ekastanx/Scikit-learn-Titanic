@@ -28,7 +28,7 @@ def predict_passenger(model, passenger: dict) -> dict:
 if __name__ == "__main__":
     model = load_model()
     examples = {
-        "Мужчина, 3-й класс, 22 года": {
+        "Мужчи/на, 3-й класс, 22 года": {
             "Name": "Braund, Mr. Owen Harris", "Sex": "male", "Age": 22, "Pclass": 3,
             "SibSp": 1, "Parch": 0, "Fare": 7.25, "Embarked": "S"},
         "Женщина, 1-й класс, 38 лет": {

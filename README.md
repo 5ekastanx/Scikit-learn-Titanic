@@ -30,6 +30,34 @@ pip install -r requirements.txt
 3. Пример предсказания: `python -m src.predict`. Если запустить predict до train, будет FileNotFoundError.
 4. Тесты: `pytest`.
 
+## API
+
+Сначала обучи модель командой `python -m src.train` из корня проекта — файл `models/model.joblib` должен существовать. Затем запусти API:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Сервер будет доступен по адресу `http://127.0.0.1:8000`. Интерактивная документация Swagger UI: `http://127.0.0.1:8000/docs`.
+
+- `GET /health` — проверка работы API, возвращает `{"status": "ok"}`.
+- `POST /predict` — предсказание выживания. Например, отправь такой JSON:
+
+```json
+{
+  "Name": "Braund, Mr. Owen Harris",
+  "Sex": "male",
+  "Age": 22,
+  "Pclass": 3,
+  "SibSp": 1,
+  "Parch": 0,
+  "Fare": 7.25,
+  "Embarked": "S"
+}
+```
+
+В ответе `survived` — предсказанный класс (`0` или `1`), а `probability` — вероятность выживания. Возраст, стоимость билета и порт посадки можно не указывать.
+
 ## Структура
 
 ```
@@ -37,7 +65,9 @@ src/features.py   создание признаков (Title, FamilySize)
 src/model.py      сборка Pipeline
 src/train.py      обучение, кросс-валидация, тест, сохранение модели
 src/predict.py    загрузка модели и предсказание для одного пассажира
+app/main.py       FastAPI-приложение с эндпоинтами /health и /predict
 tests/            быстрые тесты на выдуманных данных
+tests/test_api.py тесты API
 notebooks/        уроки 1–8: путь от первой модели до KMeans
 ```
 
